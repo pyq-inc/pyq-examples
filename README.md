@@ -4,5 +4,6 @@ Examples of projects that can be deployed using pyq. This includes a simple Hell
 All of these models can be deployed using pyq and accessed via our API.
 
 Examples include:
-1. Google ViT from HuggingFace, which is an image classifier. The example that accepts files allows the user to send an image to the model directly, while the text version accepts a URL to a publicly available image
-2. A handwriting recognition model built using scikit-learn. It can recognize handwritten numbers and accepts PNG files.
+1. Google ViT from HuggingFace, which is an image classifier. The example that accepts files allows the user to send an image to the model directly, while the JSON version accepts a URL to a publicly available image. Source: https://huggingface.co/google/vit-base-patch16-224
+2. A handwriting recognition model built using scikit-learn. It can recognize handwritten numbers and accepts PNG files. Source: https://scikit-learn.org/stable/auto_examples/classification/plot_digits_classification.html
+3. A regression model built using scikit-learn. It can predict Boston house prices and accepts a list of integers as input via a JSON object. Source: https://www.kaggle.com/code/prasadperera/the-boston-housing-dataset
