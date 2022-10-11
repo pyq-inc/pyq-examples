@@ -1,14 +1,17 @@
-from transformers import pipeline, AutoModel, AutoTokenizer, AutoConfig, set_seed
+from transformers import pipeline, BloomForCausalLM, BloomTokenizerFast, AutoConfig, set_seed
 import torch
 import os
 from accelerate import Accelerator
 from fastapi import FastAPI
 import uvicorn
+from pydantic import BaseModel
 #from torch.profiler import profile, record_function, ProfilerActivity
 
 pwd = os.getcwd() # This is bad practice but whatever. Don't do it again.
 app = FastAPI()
-app.generator = pipeline('text-generation', model=pwd)
+tokenizer = BloomTokenizerFast.from_pretrained("bigscience/bloom")
+model = BloomForCausalLM.from_pretrained(pwd)
+generator = pipeline(task="text-generation", model=model, tokenizer=tokenizer)
 
 class Item(BaseModel):
     input_sequence: str
@@ -17,11 +20,11 @@ class Item(BaseModel):
 def home():
 	return({"Hello":"World"})
 
-@app.post("/predict/{input_sequence}")
+@app.post("/predict/")
 async def predict(item: Item):
 	input_value = item.input_sequence
 	set_seed(42)
-	response = app.generator(input_value, max_length=50, num_return_sequences=1)
+	response = generator(input_value, max_length=50, num_return_sequences=1)
 	return({"response":response[0]})
 
 # if __name__ == "__main__":
