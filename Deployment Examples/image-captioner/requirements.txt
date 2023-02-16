@@ -1,0 +1,6 @@
+fastapi==0.89.1
+Pillow==9.4.0
+pydantic==1.10.2
+torch==1.13.1
+transformers==4.26.0
+uvicorn==0.20.0
